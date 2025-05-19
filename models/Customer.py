@@ -27,3 +27,13 @@ class Customer:
     def coffees(self):
         from models.Order import Order
         return [order.coffee for order in Order.all if order.customer == self]
+    
+    def create_order(self, coffee, price):
+        from models.Order import Order
+
+        order = Order(customer=self, coffee= coffee, price = price)
+        self.orders.append(order)
+
+        return order
+
+        

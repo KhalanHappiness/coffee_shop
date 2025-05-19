@@ -13,3 +13,5 @@ order2 = Order(cust2, coffee1, 5.0)
 
 # Print results
 print([c.name for c in coffee1.customers()])  # ['Alice', 'Bob']
+print(coffee1.num_orders())
+print(coffee1.average_price())

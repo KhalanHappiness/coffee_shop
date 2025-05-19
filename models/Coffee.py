@@ -30,3 +30,18 @@ class Coffee:
         from models.Order import Order
         return [orders.customer for orders in Order.all if orders.coffee == self]
     
+    def num_orders(self):
+        return f"{self.name} has been ordered {len(self.orders())} times"
+    
+    def average_price(self):
+
+        if not self.orders():
+            return 0
+        Average = sum ([order.price for order in self.orders()])/ len(self.orders())
+
+        return f'The average price of {self.name} is {Average}'
+
+
+        
+
+    
