@@ -43,4 +43,4 @@ class Order:
 
         if not isinstance(value,  float )or not (1.0<= value <= 10.0):
             raise TypeError("price must be a float between 1.0 and 10.0")
-        self._price = value
+        self._price = float(value)

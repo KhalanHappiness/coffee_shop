@@ -2,16 +2,27 @@ from models.Customer import Customer
 from models.Coffee import Coffee
 from models.Order import Order
 
-# Create instances
-cust1 = Customer("Alice")
-cust2 = Customer("Bob")
-coffee1 = Coffee("Latte")
+# Create some Coffee objects
+latte = Coffee("Latte")
+espresso = Coffee("Espresso")
+cappuccino = Coffee("Cappuccino")
 
-# Create orders
-order1 = Order(cust1, coffee1, 4.5)
-order2 = Order(cust2, coffee1, 5.0)
+# Create some Customer objects
+alice = Customer("Alice")
+bob = Customer("Bob")
+charlie = Customer("Charlie")
+
+# Create some orders
+alice.create_order(latte, 4.50)
+alice.create_order(espresso, 3.00)
+bob.create_order(latte, 5.00) # Bob ordered Latte at a different price
+bob.create_order(latte, 5.50)
+charlie.create_order(espresso, 3.50)
+charlie.create_order(latte, 6.00)
 
 # Print results
-print([c.name for c in coffee1.customers()])  # ['Alice', 'Bob']
-print(coffee1.num_orders())
-print(coffee1.average_price())
+print([c.name for c in latte.customers()])  # ['Alice', 'Bob']
+print([cf.name for cf in alice.coffees()])
+print(latte.num_orders())
+print(latte.average_price())
+print(Customer.most_aficionado(cappuccino).name)
