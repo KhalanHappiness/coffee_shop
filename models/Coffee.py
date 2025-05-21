@@ -1,12 +1,14 @@
-
+import _sqlite3
 class Coffee:
 
     all = []
+    DB_PATH = "coffee_shop.db"
     
 
-    def __init__(self, name):
+    def __init__(self, name, id = None):
     
         self.name = name
+        self.id = id
         Coffee.all.append(self)
 
     @property
@@ -20,7 +22,7 @@ class Coffee:
            self._name =value
 
         else: 
-             raise TypeError("Coffee name must be a string with at least 3 characters")
+             raise ValueError("Coffee name must be a string with at least 3 characters")
     
     def orders(self):
         from models.Order import Order
@@ -40,6 +42,31 @@ class Coffee:
         Average = sum ([order.price for order in self.orders()])/ len(self.orders())
 
         return f'The average price of {self.name} is {Average}'
+
+#Database methods
+
+@classmethod
+def create_table(cls):
+    #connection reference
+    conn = _sqlite3.connect(cls.DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute(""" CREATE TABLE IF NOT EXISTS coffees(
+                   id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   name TEXT NOT NULL)  """)
+    conn.commit()
+    conn.close()
+
+def save(self):
+    conn = _sqlite3.connect(self.DB_PATH)
+    cursor = conn.cursor()
+    if self.id is None:
+        #research
+        cursor.execute("INSERT INTO coffees (name) VALUES(?)", (self.name,))
+        self.id = cursor.lastrowid
+    else:
+        cursor.execute(f"UPDATE coffes SET name = ? WHERE id = ?", (self.name, self.id))
+    conn.commit()
+    conn.close()
 
 
         

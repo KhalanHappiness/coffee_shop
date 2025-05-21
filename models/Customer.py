@@ -49,7 +49,7 @@ class Customer:
     def most_aficionado(cls, coffee):
         most_spent = 0
         aficionado = None
-
+#validate, make sure it is  an object of the coffee instance
         for customer in cls.all:
             spent = customer.total_spent_on_coffee(coffee)
             if spent > most_spent:
